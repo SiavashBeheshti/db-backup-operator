@@ -22,7 +22,7 @@ def configure(settings: kopf.OperatorSettings, **_):
     print(f"Supported storage: {', '.join(config.storage.supported_types)}")
 
 
-@kopf.on.create('backup.example.com', 'v1', 'databasebackups')
+@kopf.on.create('backup.dboperator.io', 'v1', 'databasebackups')
 def create_backup_job(spec, name, namespace, logger, **kwargs):
     """
     Handler called when a DatabaseBackup resource is created
@@ -70,7 +70,7 @@ def create_backup_job(spec, name, namespace, logger, **kwargs):
         raise kopf.PermanentError(f"Cannot create CronJob: {e}")
 
 
-@kopf.on.update('backup.example.com', 'v1', 'databasebackups')
+@kopf.on.update('backup.dboperator.io', 'v1', 'databasebackups')
 def update_backup_job(spec, name, namespace, logger, **kwargs):
     """
     Handler called when a DatabaseBackup resource is updated
@@ -123,7 +123,7 @@ def update_backup_job(spec, name, namespace, logger, **kwargs):
         raise kopf.TemporaryError(f"Cannot update CronJob: {e}", delay=30)
 
 
-@kopf.on.delete('backup.example.com', 'v1', 'databasebackups')
+@kopf.on.delete('backup.dboperator.io', 'v1', 'databasebackups')
 def delete_backup_job(name, namespace, logger, **kwargs):
     """
     Handler called when a DatabaseBackup resource is deleted
@@ -133,7 +133,7 @@ def delete_backup_job(name, namespace, logger, **kwargs):
     return {'message': f'Backup job {name} deleted'}
 
 
-@kopf.timer('backup.example.com', 'v1', 'databasebackups', interval=300)
+@kopf.timer('backup.dboperator.io', 'v1', 'databasebackups', interval=300)
 def check_backup_status(spec, name, namespace, status, patch, logger, **kwargs):
     """
     Periodic check to update backup status

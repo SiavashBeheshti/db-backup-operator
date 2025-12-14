@@ -1,9 +1,9 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: databasebackups.backup.example.com
+  name: databasebackups.backup.dboperator.io
 spec:
-  group: backup.example.com
+  group: backup.dboperator.io
   versions:
     - name: v1
       served: true

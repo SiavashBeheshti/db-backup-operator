@@ -76,7 +76,7 @@ stringData:
 Create a `DatabaseBackup` resource:
 
 ```yaml
-apiVersion: backup.example.com/v1
+apiVersion: backup.dboperator.io/v1
 kind: DatabaseBackup
 metadata:
   name: production-db-backup

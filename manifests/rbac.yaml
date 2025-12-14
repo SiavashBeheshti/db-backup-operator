@@ -9,10 +9,10 @@ kind: ClusterRole
 metadata:
   name: db-backup-operator-role
 rules:
-  - apiGroups: ["backup.example.com"]
+  - apiGroups: ["backup.dboperator.io"]
     resources: ["databasebackups"]
     verbs: ["get", "list", "watch", "patch"]
-  - apiGroups: ["backup.example.com"]
+  - apiGroups: ["backup.dboperator.io"]
     resources: ["databasebackups/status"]
     verbs: ["patch"]
   - apiGroups: ["batch"]
