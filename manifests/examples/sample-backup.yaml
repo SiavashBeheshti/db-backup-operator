@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-creds
+  namespace: default
+type: Opaque
+stringData:
+  username: postgres
+  password: your-password
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: s3-creds
+  namespace: default
+type: Opaque
+stringData:
+  access-key: YOUR_ACCESS_KEY
+  secret-key: YOUR_SECRET_KEY
+---
+apiVersion: backup.example.com/v1
+kind: DatabaseBackup
+metadata:
+  name: production-db-backup
+  namespace: default
+spec:
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  database:
+    type: postgres
+    host: postgres.default.svc.cluster.local
+    port: 5432
+    name: production
+    credentialsSecret: postgres-creds
+  storage:
+    type: s3
+    bucket: my-backup-bucket
+    region: us-east-1
+    credentialsSecret: s3-creds
+  retention:
+    keepLast: 7
